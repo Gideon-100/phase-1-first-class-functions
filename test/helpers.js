@@ -1,25 +1,45 @@
-const expect = require("chai").expect;
-const chai = require("chai");
-global.expect = chai.expect;
-const fs = require("fs");
-require("jsdom-global")();
+const chai = require('chai');
+const expect = chai.expect;
 
-const path = require("path");
-const babel = require("@babel/core");
+const {
+  receivesAFunction,
+  returnsANamedFunction,
+  returnsAnAnonymousFunction
+} = require('../index');
 
-// Load and inject HTML into the DOM
-const html = fs.readFileSync(
-  path.resolve(__dirname, "..", "index.html"),
-  "utf-8"
-);
-document.documentElement.innerHTML = html;
+describe('index', function () {
+  describe('receivesAFunction(callback)', function () {
+    it('receives a function and calls it', function () {
+      let called = false;
+      function spy() {
+        called = true;
+      }
+      receivesAFunction(spy);
+      expect(called).to.be.true;
+    });
+  });
 
-// Transpile and inject JavaScript code
-const babelResult = babel.transformFileSync(
-  path.resolve(__dirname, "..", "index.js"),
-  {
-    presets: ["@babel/preset-env"],
-  }
-);
+  describe('returnsANamedFunction()', function () {
+    it('returns a function', function () {
+      const fn = returnsANamedFunction();
+      expect(fn).to.be.a('function');
+    });
 
-eval(babelResult.code); // Executes the transpiled JS code in the DOM context
+    it('returns a named function', function () {
+      const fn = returnsANamedFunction();
+      expect(fn.name).not.to.be.empty;
+    });
+  });
+
+  describe('returnsAnAnonymousFunction()', function () {
+    it('returns a function', function () {
+      const fn = returnsAnAnonymousFunction();
+      expect(fn).to.be.a('function');
+    });
+
+    it('returns an anonymous function', function () {
+      const fn = returnsAnAnonymousFunction();
+      expect(fn.name).to.be.empty;
+    });
+  });
+});
