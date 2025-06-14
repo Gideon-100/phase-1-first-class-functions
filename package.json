@@ -4,7 +4,7 @@
   "description": "Practice writing and using first-class functions in JavaScript on Learn",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -R mocha-multi --reporter-options nyan=-,json=.results.json"
+    "test": "mocha --require @babel/register --reporter nyan"
   },
   "repository": {
     "type": "git",
@@ -22,13 +22,19 @@
   },
   "homepage": "https://github.com/learn-co-curriculum/first-class-functions#readme",
   "devDependencies": {
-    "babel-core": "6.26.3",
-    "babel-preset-env": "1.7.0",
+    "@babel/cli": "^7.27.2",
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/register": "^7.27.1",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^30.0.0",
+    "babel-loader": "^10.0.0",
+    "babel-preset-env": "^0.0.0",
     "chai": "4.1.2",
     "chai-spies": "^1.0.0",
-    "jsdom": "9.2.1",
-    "mocha": "5.2.0",
-    "mocha-jsdom": "~1.1.0",
-    "mocha-multi": "1.0.1"
+    "jsdom": "^26.1.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^11.6.0",
+    "mocha-jsdom": "~1.1.0"
   }
 }
