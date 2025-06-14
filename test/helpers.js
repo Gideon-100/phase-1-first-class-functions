@@ -1,4 +1,4 @@
-
+const expect = require("chai").expect;
 const chai = require("chai");
 global.expect = chai.expect;
 const fs = require("fs");
